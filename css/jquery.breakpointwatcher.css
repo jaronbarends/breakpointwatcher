@@ -1,0 +1,30 @@
+.breakpointwatcher {
+	display: none;
+	height: 0;
+	line-height: 0;
+}
+
+/*
+ * you'll also need to add rules for the breakpointwatcher's indicator elements
+ * for every view, a div is created with attribute data-view set to the view's name
+ * for maintenance, it's preferable to do this where you define the media queries
+ * for your global layout
+ *
+ * like this:
+
+	.breakpointwatcher[data-view="large"] {
+		display: block;
+	}
+	.breakpointwatcher[data-view="small"] {
+		display: none;
+	}
+
+ 	@media screen and (max-width: 39.9999em) {
+		.breakpointwatcher[data-view="large"] {
+			display: none;
+		}
+		.breakpointwatcher[data-view="small"] {
+			display: block;
+		}
+	}
+*/

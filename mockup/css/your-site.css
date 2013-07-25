@@ -1,0 +1,24 @@
+/*
+* this is the equivalent of your site's normal css file
+*/
+
+
+
+
+/*-- Start breakpointwatcher --*/
+	.breakpointwatcher[data-view="large"] {
+		display: block;
+	}
+	.breakpointwatcher[data-view="small"] {
+		display: none;
+	}
+
+	@media screen and (max-width: 40em) {
+		.breakpointwatcher[data-view="large"] {
+			display: none;
+		}
+		.breakpointwatcher[data-view="small"] {
+			display: block;
+		}
+	}
+/*-- Start breakpointwatcher --*/
