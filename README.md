@@ -4,17 +4,26 @@ Sends events when breakpoint changes occur, and gives information about the curr
 
 Requires jQuery 1.7 or higher.
 
-Adds empty divs with class breakpointwatcher to body; on resize checks the visibility state of these divs if a change in visibility occurs, a change.pointwatcher event is triggered on the document. Other javascript code can listen for this event.
+##How it works
+The Breakpoint watcher plugin adds empty divs with class breakpointwatcher to body. Then it checks on resize wether the visibility state of these divs has changed. If a change in visibility occurs, a change.breakpointwatcher event is triggered on the document. Other javascript code can listen for this event, en respond as they wish. This uncouples the detection of breakpoint changes from the actions to be taken upon it.
+
+#Getting started
+
+
+##Javascript
+
+Add _jquery.breakpointwatcher.js_ to your page - best practice is to do this at the end of the body, and make sure it is inserted after jquery.
+
 
 ##Initialisation
+Somewhere after inserting your plugin, insert the code. In it simplest form, the plugin will check for two views, named _small_ and _large_. The code for this simples variant is this:
 
 	$(document).ready(function() {
 		$.breakpointwatcher();
 	}
 
-##Configuration options
-###views
-By default, the plugins checks for two views, named *small* and *large*. You can change this as you wish:
+###Checking for more views, or views with other names
+If you want to check for more than 2 views, or if you want to give them different names, you can change this by passing an options object during the initialisation. This options object contains only one property: an array named _views_, containing the names of the views you want to check for.
 
 	$(document).ready(function() {
 		var options = {
@@ -25,39 +34,16 @@ By default, the plugins checks for two views, named *small* and *large*. You can
 
 for every string in the `views` array, a div will be inserted with an attribute data-view which holds that string, e.g.
 
-  `<div data-view="someOtherSize" class="breakpointwatcher"></div>`
+`<div data-view="small" class="breakpointwatcher"></div>`
 
+or
 
-##Events
-
-###change.breakpointwatcher
-Is triggered by `document` when a breakpoint has been crossed
-
-A data object is sent along with the event:
-
-	{    
-    	view: view,/* the new view */
-    	prevView: prevView,/* the previous view */
-    	originalEvent: e/* the original resize event which caused the breakpoint change */
-    }
-
-##Public methods
-Public methods can be called like this: `var view = $.breakpointwatcher.getView();`
-
-###getView();
-returns the name of the current view; returned names correspond with the names in the options object's views array.
-
-##Listening for breakpoint changes
-You can have your code listen for breakpoint changes by adding an event listener:
-
-	$(document).on('change.breakpointwatcher', function(e, data) {
-		console.log('new view:'+data.view);
-	});
+`<div data-view="someOtherSize" class="breakpointwatcher"></div>`
 
 ##CSS
 Add `jquery.breakpointwatcher.css` to your site; this takes care of hiding the inserted divs
 
-For every view you want to define, you have to create a media query to determine when it should be shown and hidden. From a maintenance point of view, this will best be done were you define the rest of your website's media queries.
+For every view you want define, you have to create a media query to determine when it should be shown and hidden. From a maintenance point of view, this will best be done were you define the rest of your website's media queries.
 
 Example:
 
@@ -76,3 +62,31 @@ Example:
 			display: block;
 		}
 	}
+
+##Javascript events
+
+When a breakpoint has been crossed, the event `change.breakpointwatcher` is triggered by the `document`.
+
+A data object is sent along with the event:
+
+	{    
+    	view: view,/* name of the new view */
+    	prevView: prevView,/* name of the previous view */
+    	originalEvent: e/* the original resize event which caused the breakpoint change */
+    }
+
+###Listening for breakpoint changes
+You can have your code listen for breakpoint changes by adding an event listener:
+
+	$(document).on('change.breakpointwatcher', function(e, data) {
+		console.log('new view:'+data.view);
+	});
+
+##Public methods
+Public methods can be called like this: `var view = $.breakpointwatcher.getView();`
+
+###getView();
+returns the name of the current view; returned names correspond with the names in the options object's views array.
+
+
+
