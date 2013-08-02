@@ -15,14 +15,14 @@ The Breakpoint watcher plugin adds empty divs with class breakpointwatcher to bo
 Add _jquery.breakpointwatcher.js_ to your page - best practice is to do this at the end of the body, and make sure it is inserted after jquery.
 
 
-##Initialisation
+###Basic initialisation
 Somewhere after inserting your plugin, insert the code. In it simplest form, the plugin will check for two views, named _small_ and _large_. The code for this simples variant is this:
 
 	$(document).ready(function() {
 		$.breakpointwatcher();
 	}
 
-###Checking for more views, or views with other names
+###Initialisation with more views, or views with other names
 If you want to check for more than 2 views, or if you want to give them different names, you can change this by passing an options object during the initialisation. This options object contains only one property: an array named _views_, containing the names of the views you want to check for.
 
 	$(document).ready(function() {
